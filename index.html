@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/nouislider.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>ikgeoApp</title>
+</head>
+<body>
+    <div id='map'>
+        <section class='map__filter' id='mapFilter'>
+            <section class='map__filter__criminaliteit'>
+                <h1> Armoede en criminaliteit gemeente Rotterdam</h1>
+                <h3> Soorten criminaliteit</h3>
+                <input id="button" type="radio" name="button" onclick="show_alles();" value="totaal" checked/>
+                <label for="totaal" id='button'>Totaal</label><br>
+                <input id="button" type="radio" name="button" onclick="show_diefstal();" value="diefstal"/>
+                <label for="diefstal">Diefstal woning en schuur</label><br>
+                <input id="button" type="radio" name="button" onclick="show_vernieling();" value="vernieling"/>
+                <label for="vernieling">Vernieling misdrijf tegen openbare orde</label><br>
+                <input id="button" type="radio" name="button" onclick="show_geweld();" value="geweld"/>
+                <label for="geweld">Geweld en seksuele misdrijven</label><br>
+                <h3> Gemiddelde inkomen per buurtbewoner </h3>
+                <div class='map__filter__inkomen' id='slider'></div>
+                <h3> Percentage huurwoningen (tegenover koopwoningen)</h3>
+                <div class='map__filter__huurwoning' id='slider1'></div>
+                <h3> Percentage meergezinswoningen (tegenover eengezinswoningen)</h3>
+                <div class='map__filter__type' id='slider2'></div>
+                <h3> Percentage jongeren tegenover volwassen</h3>
+                <div class='map__filter__leeftijd' id='slider3'></div>
+            </section>
+        </section>
+        
+    </div><footer>© Burak Kivrak</footer>
+    <script src='js/nouislider.js'></script>
+    <script src='js/data.js'></script>
+    <script src='js/main.js'></script>
+    
+</body>
+</html>
+
+
+

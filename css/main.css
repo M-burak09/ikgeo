@@ -1,0 +1,144 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(37, 37, 37);
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#map{
+    font-family: 'Montserrat', sans-serif;
+    font-weight:800;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.map__filter__inkomen, .map__filter__huurwoning, .map__filter__type, .map__filter__leeftijd{
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+    
+.leaflet-control-zoom {
+    left: 20vw;
+}
+
+.map__filter__criminaliteit{
+    padding: 25px;
+}
+
+#criminaliteit--alles, #criminaliteit--1{
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    z-index: 1002;
+}
+
+.map__filter{
+    position: relative;
+    width: 20%;
+    height: 100vh;
+    background-color:rgba(54, 62, 83, 0.9);
+    /* background-color:rgb(68,79,107, 0.9); */
+    z-index: 1004;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 0 0 25px rgba(38, 44, 59, 0.9);
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    /* font-family: 'Open Sans', sans-serif; */
+    /* background-color:rgb(68,79,107, 0.9); */
+    background-color:rgba(54, 62, 83, 0.9);
+    box-shadow: 0 0 25px rgba(38, 44, 59, 0.9);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    line-height:30px;
+    color: white;
+    width: 8vw;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+h1{
+    font-size: 16px;
+}
+
+h3{
+    font-size: 14px;
+    margin-top: 33px;
+}
+
+
+h5{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    line-height: normal;
+}
+
+footer{
+    position: relative;
+    color: white;
+    z-index: 1005;
+    margin-left: 50vw;
+    margin-top: 96.75vh;
+}
+
+.map__filter__inkomen{
+    margin-top: 20%;
+}
+
+.map__filter__huurwoning{
+    margin-top: 20%;
+}
+
+.map__filter__type{
+    margin-top: 20%;
+}
+
+.map__filter__leeftijd{
+    margin-top: 20%;
+}
+
+/* Utility classes */
+
+.flex{
+    display: flex;
+}
+
+.center{
+    text-align: center;
+}
+
+.dikgedrukt{
+    font-weight: bold;
+}
+
+.kopjes{
+    font-weight: normal;
+}
+
+
+input[type='radio'] { 
+    transform: scale(1.2); 
+    margin-bottom: 8px;
+}
