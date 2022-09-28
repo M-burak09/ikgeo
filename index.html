@@ -20,13 +20,13 @@
             <section class='map__filter__criminaliteit'>
                 <h1> Armoede en criminaliteit gemeente Rotterdam</h1>
                 <h3> Soorten criminaliteit</h3>
-                <input id="button" type="radio" name="button" onclick="show_alles();" value="totaal" checked/>
+                <input id="totaal" type="radio" name="button" onclick="changeData();" value="totaal" checked/>
                 <label for="totaal" id='button'>Totaal</label><br>
-                <input id="button" type="radio" name="button" onclick="show_diefstal();" value="diefstal"/>
+                <input id="diefstal" type="radio" name="button" onclick="changeData();" value="diefstal"/>
                 <label for="diefstal">Diefstal woning en schuur</label><br>
-                <input id="button" type="radio" name="button" onclick="show_vernieling();" value="vernieling"/>
+                <input id="vernieling" type="radio" name="button" onclick="changeData();" value="vernieling"/>
                 <label for="vernieling">Vernieling misdrijf tegen openbare orde</label><br>
-                <input id="button" type="radio" name="button" onclick="show_geweld();" value="geweld"/>
+                <input id="geweld" type="radio" name="button" onclick="changeData();" value="geweld"/>
                 <label for="geweld">Geweld en seksuele misdrijven</label><br>
                 <h3> Gemiddelde inkomen per buurtbewoner </h3>
                 <div class='map__filter__inkomen' id='slider'></div>

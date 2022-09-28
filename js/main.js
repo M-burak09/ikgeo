@@ -10,67 +10,66 @@ L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{
     attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Geeft de kleuren voor de geojson data
-function getColor(d) {
-    return d > 50 ? '#800026' :
-        d > 30  ? '#BD0026' :
-        d > 25  ? '#E31A1C' :
-        d > 20  ? '#FC4E2A' :
-        d > 15   ? '#FD8D3C' :
-        d > 10   ? '#FEB24C' :
-        d > 5   ? '#FED976' :
-        d >= 0  ? '#FFEDA0':
+// Koppelt de kleuren voor de geojson data
+const getColor = (data) => {
+    return data > 50 ? '#800026' :
+        data > 30  ? '#BD0026' :
+        data > 25  ? '#E31A1C' :
+        data > 20  ? '#FC4E2A' :
+        data > 15   ? '#FD8D3C' :
+        data > 10   ? '#FEB24C' :
+        data > 5   ? '#FED976' :
+        data >= 0  ? '#FFEDA0':
                     '#AAA';
 }
 
-// Past de stijl toe voor de 4 dimensies
-function style_alles(feature) {
-        return {
-            fillColor: getColor(feature.properties.TotaalDiefstalUitWoningSchuurED_106 + feature.properties.VernielingMisdrijfTegenOpenbareOrde_107 + feature.properties.GeweldsEnSeksueleMisdrijven_108),
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.75
-        };
+// Standaard style waardes geo vlakken
+const style_waardes = {
+    weight: 2,
+    opacity: 1,
+    color: 'white',
+    dashArray: '3',
+    fillOpacity: 0.75
 }
 
-function style_diefstal(feature) {
-        return {
+// Past de stijl toe voor de 4 dimensie filters
+const styles = (feature) =>{
+    if(document.getElementById('totaal').checked){
+        const totaal = {
+            fillColor: getColor(feature.properties.TotaalDiefstalUitWoningSchuurED_106 + feature.properties.VernielingMisdrijfTegenOpenbareOrde_107 + feature.properties.GeweldsEnSeksueleMisdrijven_108),  
+        };
+
+        return Object.assign(totaal, style_waardes);
+    }
+
+    else if(document.getElementById('diefstal').checked){
+        const totaal = {
             fillColor: getColor(feature.properties.TotaalDiefstalUitWoningSchuurED_106),
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.75
         };
-}
 
-function style_vernieling(feature) {
-    return {
-        fillColor: getColor(feature.properties.VernielingMisdrijfTegenOpenbareOrde_107),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.75
-    };
-}
+        return Object.assign(totaal, style_waardes);
+    }
 
-function style_geweld(feature) {
-    return {
-        fillColor: getColor(feature.properties.GeweldsEnSeksueleMisdrijven_108),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        dashArray: '3',
-        fillOpacity: 0.75
-    };
+    else if(document.getElementById('vernieling').checked){
+        const totaal = {
+            fillColor: getColor(feature.properties.VernielingMisdrijfTegenOpenbareOrde_107),  
+        };
+
+        return Object.assign(totaal, style_waardes);
+    } 
+
+    else{
+        const totaal = {
+            fillColor: getColor(feature.properties.GeweldsEnSeksueleMisdrijven_108),
+        };
+
+        return Object.assign(totaal, style_waardes);
+    }
 }
 
 // Wat er moet gebeuren wanneer je over een buurt beweegt
-function highlightFeature(e) {
-    var layer = e.target;
+const highlightFeature = (e) => {
+    let layer = e.target;
 
     layer.setStyle({
         weight: 5,
@@ -87,13 +86,13 @@ function highlightFeature(e) {
 }
 
 // Het resetten wanneer je niet meer over een buurt beweegt
-function resetHighlight(e) {
+const resetHighlight = (e) =>{
     geojson.resetStyle(e.target);
     info.update();
 }
 
 // Inzoomen wanneer je klikt op een buurt
-function zoomToFeature(e) {
+const zoomToFeature = (e) => {
     map.fitBounds(e.target.getBounds());
 }
 
@@ -152,6 +151,7 @@ legend.onAdd = function (map) {
         grades = [0, 5, 10, 15, 20, 25, 30, 50],
         labels = [];
         div.innerHTML += '<h5> Aantal delicten per 1000 inwoners </h5>'
+
     // Looped door de kleuren bij de getColor functie om deze aan de legenda toe te voegen
     for (let i = 0; i < grades.length; i++) {
         div.innerHTML +=
@@ -276,64 +276,31 @@ noUiSlider.create(slider3, {
 });
 
 // Functies waarbij de kaart sleepfunctie gestopt wordt wanneer je op de filter-, informatie- of legendaschermpje komt.
-mapFilter.addEventListener('mouseover', function () {
-    map.dragging.disable();
-});
+let dashboard_elementen = [mapFilter,info.getContainer(),legend.getContainer()]
+dashboard_elementen.forEach(function(el)
+    {
+        el.addEventListener('mouseover', function () {
+            map.dragging.disable();
+        });
+    });
 
-mapFilter.addEventListener('mouseout', function () {
-    map.dragging.enable();
-});
+    dashboard_elementen.forEach(function(el)
+    {
+        el.addEventListener('mouseout', function () {
+            map.dragging.enable();
+        });
+    });
 
-  info.getContainer().addEventListener('mouseover', function () {
-    map.dragging.disable();
-});
-
-info.getContainer().addEventListener('mouseout', function () {
-    map.dragging.enable();
-});
-
-legend.getContainer().addEventListener('mouseover', function () {
-    map.dragging.disable();
-});
-
-legend.getContainer().addEventListener('mouseout', function () {
-    map.dragging.enable();
-});
-
-// Hier wordt de geojson data op de kaart getoont. Ze staan er meerdere malen in met verschillende style waardes door de 4 dimensies.
-geojson = L.geoJSON(rotterdamGeoJSON, {
-    style: style_alles,
-    onEachFeature: onEachFeature
-}).addTo(map);
-
-function show_alles(){
-    geojson.remove();
+// Hier wordt de geojson data op de kaart getoont en geupdate bij interactie.
+const showData = () => {
     geojson = L.geoJSON(rotterdamGeoJSON, {
-        style: style_alles,
+        style: styles,
         onEachFeature: onEachFeature
     }).addTo(map);
+}
+const changeData = () => {
+    geojson.remove();
+    showData();
 };
 
-function show_diefstal(){
-    geojson.remove();
-    geojson = L.geoJSON(rotterdamGeoJSON, {
-        style: style_diefstal,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-}; 
-
-function show_vernieling(){
-    geojson.remove();
-    geojson = L.geoJSON(rotterdamGeoJSON, {
-        style: style_vernieling,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-}; 
-
-function show_geweld(){
-    geojson.remove();
-    geojson = L.geoJSON(rotterdamGeoJSON, {
-        style: style_geweld,
-        onEachFeature: onEachFeature
-    }).addTo(map);
-}; 
+showData();
